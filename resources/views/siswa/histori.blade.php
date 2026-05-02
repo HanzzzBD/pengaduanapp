@@ -45,10 +45,10 @@
                 <tbody>
                     @foreach($aspirasis as $item)
                     <tr>
-                        <td>{{ $item->tanggal }}</td>
-                        <td>{{ $item->kategori->ket_kategori ?? '-' }}</td>
+                        <td>{{ optional($item->created_at)->format('d-m-Y H:i') ?? '-' }}</td>
+                        <td>{{ $item->kategori->ket_kat ?? '-' }}</td>
                         <td>{{ $item->lokasi }}</td>
-                        <td>{{ $item->ket }}</td>
+                        <td>{{ $item->keterangan }}</td>
                         <td>
                             <span class="badge bg-{{ $item->aspirasi && $item->aspirasi->status == 'Selesai' ? 'success' : ($item->aspirasi && $item->aspirasi->status == 'Proses' ? 'warning' : 'secondary') }}">
                                 {{ $item->aspirasi->status ?? 'Menunggu' }}

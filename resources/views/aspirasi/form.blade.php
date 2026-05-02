@@ -15,12 +15,16 @@
                         <div class="alert alert-success">{{ session('success') }}</div>
                     @endif
 
+                    @if($errors->any())
+                        <div class="alert alert-danger">{{ $errors->first() }}</div>
+                    @endif
+
                     <form action="{{ route('aspirasi.store') }}" method="POST">
                         @csrf
 
                         <div class="mb-3">
                             <label class="form-label">NIS Siswa</label>
-                            <input type="number" name="nis" class="form-control" required>
+                            <input type="number" name="nis" class="form-control" value="{{ old('nis') }}" required>
                         </div>
 
                         <div class="mb-3">
@@ -28,19 +32,19 @@
                             <select name="id_kategori" class="form-select" required>
                                 <option value="">-- Pilih Kategori --</option>
                                 @foreach($kategoris as $k)
-                                    <option value="{{ $k->id_kategori }}">{{ $k->ket_kategori }}</option>
+                                    <option value="{{ $k->id_kat }}" {{ old('id_kategori') == $k->id_kat ? 'selected' : '' }}>{{ $k->ket_kat }}</option>
                                 @endforeach
                             </select>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Lokasi</label>
-                            <input type="text" name="lokasi" class="form-control" placeholder="contoh: Lantai 2, Ruang 301" required>
+                            <input type="text" name="lokasi" class="form-control" value="{{ old('lokasi') }}" placeholder="contoh: Lantai 2, Ruang 301" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Keterangan Pengaduan</label>
-                            <textarea name="ket" class="form-control" rows="4" placeholder="Jelaskan masalahnya..." required></textarea>
+                            <textarea name="keterangan" class="form-control" rows="4" placeholder="Jelaskan masalahnya..." required>{{ old('keterangan') }}</textarea>
                         </div>
 
                         <button type="submit" class="btn btn-success btn-lg w-100">Kirim Aspirasi</button>

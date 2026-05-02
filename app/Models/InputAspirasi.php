@@ -9,21 +9,16 @@ class InputAspirasi extends Model
 {
     use HasFactory;
 
-    protected $table = 'input_aspirasi';
-    protected $primaryKey = 'id_pelaporan';
-
-    // ★★★ INI YANG PALING PENTING ★★★
-    public $timestamps = false;     // Matikan created_at & updated_at
+    protected $table = 'input_aspirasis';
+    protected $primaryKey = 'id_pelapor';
 
     protected $fillable = [
         'nis',
         'id_kategori',
         'lokasi',
-        'ket',
-        'tanggal'
+        'keterangan'
     ];
 
-    // Relationship
     public function siswa()
     {
         return $this->belongsTo(Siswa::class, 'nis', 'nis');
@@ -31,11 +26,11 @@ class InputAspirasi extends Model
 
     public function kategori()
     {
-        return $this->belongsTo(Kategori::class, 'id_kategori', 'id_kategori');
+        return $this->belongsTo(Kategori::class, 'id_kategori', 'id_kat');
     }
 
     public function aspirasi()
     {
-        return $this->hasOne(Aspirasi::class, 'id_pelaporan', 'id_pelaporan');
+        return $this->hasOne(Aspirasi::class, 'id_pelapor', 'id_pelapor');
     }
 }

@@ -12,8 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('input_aspirasis', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_pelapor');
+            $table->integer('nis');
+            $table->unsignedBigInteger('id_kategori');
+            $table->string('lokasi');
+            $table->text('keterangan');
             $table->timestamps();
+
+            $table->foreign('nis')->references('nis')->on('siswas')->onDelete('cascade');
+            $table->foreign('id_kategori')->references('id_kat')->on('kategoris')->onDelete('cascade');
         });
     }
 

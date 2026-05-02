@@ -9,7 +9,7 @@ class Siswa extends Model
 {
     use HasFactory;
 
-    protected $table = 'siswa';
+    protected $table = 'siswas';
     protected $primaryKey = 'nis';
     public $incrementing = false;   // karena nis bukan auto increment
     protected $keyType = 'int';

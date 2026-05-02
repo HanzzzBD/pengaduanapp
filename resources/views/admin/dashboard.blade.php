@@ -28,11 +28,11 @@
             @foreach($aspirasis as $item)
             @php $asp = $item->aspirasi; @endphp
             <tr>
-                <td>{{ $item->tanggal }}</td>
+                <td>{{ optional($item->created_at)->format('d-m-Y H:i') ?? '-' }}</td>
                 <td>{{ $item->nis }}</td>
-                <td>{{ $item->kategori->ket_kategori ?? '-' }}</td>
+                <td>{{ $item->kategori->ket_kat ?? '-' }}</td>
                 <td>{{ $item->lokasi }}</td>
-                <td>{{ $item->ket }}</td>
+                <td>{{ $item->keterangan }}</td>
                 <td>
                     <span class="badge bg-{{ $asp && $asp->status == 'Selesai' ? 'success' : ($asp && $asp->status == 'Proses' ? 'warning' : 'secondary') }}">
                         {{ $asp->status ?? 'Menunggu' }}
@@ -40,9 +40,9 @@
                 </td>
                 <td>{{ $asp->feedback ?? 'Belum ada umpan balik' }}</td>
                 <td>
-                    <button class="btn btn-sm btn-primary" 
-                            data-bs-toggle="modal" 
-                            data-bs-target="#feedbackModal{{ $item->id_pelaporan }}">
+                    <button class="btn btn-sm btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#feedbackModal{{ $item->id_pelapor }}">
                         Umpan Balik
                     </button>
                 </td>
@@ -54,13 +54,13 @@
     <!-- MODAL UMPAN BALIK (diletakkan di luar tabel tapi masih di dalam loop) -->
     @foreach($aspirasis as $item)
     @php $asp = $item->aspirasi; @endphp
-    <div class="modal fade" id="feedbackModal{{ $item->id_pelaporan }}" tabindex="-1">
+    <div class="modal fade" id="feedbackModal{{ $item->id_pelapor }}" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{ route('admin.feedback', $item->id_pelaporan) }}" method="POST">
+                <form action="{{ route('admin.feedback', $item->id_pelapor) }}" method="POST">
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title">Umpan Balik Aspirasi #{{ $item->id_pelaporan }}</h5>
+                        <h5 class="modal-title">Umpan Balik Aspirasi #{{ $item->id_pelapor }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">

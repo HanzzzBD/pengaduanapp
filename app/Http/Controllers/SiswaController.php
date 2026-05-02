@@ -14,7 +14,7 @@ class SiswaController extends Controller
         if ($request->filled('nis')) {
             $aspirasis = InputAspirasi::with(['kategori', 'aspirasi'])
                 ->where('nis', $request->nis)
-                ->orderBy('tanggal', 'desc')
+                ->orderBy('created_at', 'desc')
                 ->get();
         }
 
